@@ -11,10 +11,10 @@ class AuthenticatedDataSource extends RemoteGraphQLDataSource {
 
 const gateway = new ApolloGateway({
   serviceList: [
-    { name: 'access', url: 'http://localhost:8095/graphql/' },
-    //{ name: 'access', url: 'https://apapacho.staging.ixuapistemp.ml/graphql/'},
+  //{ name: 'access', url: 'https://apapacho.staging.ixuapistemp.ml/graphql/'},
+    { name: 'access',  url: 'http://localhost:8095/graphql/' },
     { name: 'content', url: 'http://localhost:8096/graphql/' },
-    //{ name: 'payment', url: 'http://localhost:8097/graphql/' },
+    { name: 'payment', url: 'http://localhost:8097/graphql/' },
   ],
    buildService({ name, url }) {
     return new AuthenticatedDataSource({ url });
@@ -27,11 +27,12 @@ const server = new ApolloServer({
   context: ({ req }) => {
     const bearer = req.headers.authorization || '';
     const orgcode = req.headers.orgcode || '';
-    console.log(bearer: ${bearer});
+    console.log(bearer);
+    console.log(orgcode);
     return { bearer };
   },
 });
 
 server.listen().then(({ url }) => {
-  console.log(🚀 Server ready at ${url});
+  console.log(`Server ready at ${url}`);
 });

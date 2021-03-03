@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "dev": "concurrently -k npm:dev:*",
-    "dev:films": "nodemon -r esm ./films/index.js",
-    "dev:people": "nodemon -r esm ./people/index.js",
-    "dev:gateway": "wait-on tcp:4001 tcp:4002 && nodemon -r esm ./index.js"
+    "dev:access": "nodemon -r esm ./devs/access.js",
+    "dev:content": "nodemon -r esm ./devs/content.js",
+    "dev:payments": "nodemon -r esm ./devs/payments.js",
+    "dev:gateway": "wait-on tcp:4001 tcp:4002 tcp:4003 && nodemon -r esm ./index.js"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,7 @@
     "@apollo/federation": "^0.13.2",
     "@apollo/gateway": "^0.13.2",
     "apollo-server": "^2.14.2",
+    "apollo-server-errors": "^2.4.2",
     "concurrently": "^5.1.0",
     "esm": "^3.2.25",
     "graphql": "^15.0.0",
