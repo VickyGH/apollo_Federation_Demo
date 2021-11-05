@@ -6,6 +6,7 @@ class AuthenticatedDataSource extends RemoteGraphQLDataSource {
   willSendRequest({ request, context }) {
     request.http.headers.set('Bearer', context.bearer);
     request.http.headers.set('Orgcode', context.orgcode);
+    request.http.headers.set('Partnercode', context.partnercode);
     //console.log(`🚀 Bearer ${context.bearer}`);
     //console.log(`🚀 Orgcode ${context.orgcode}`);
   }
@@ -50,9 +51,10 @@ const server = new ApolloServer({
   context: ({ req }) => {
     const bearer = req.headers.authorization || '';
     const orgcode = req.headers.orgcode || '';
+    const partnercode = req.headers.partnercode || '';
     //console.log(bearer);
     //console.log(orgcode);
-    return { bearer, orgcode };
+    return { bearer, orgcode, partnercode};
   },
 });
 
